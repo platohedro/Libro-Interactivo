@@ -46,7 +46,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-b from-sky-100 to-sky-200">
-      <h1 className="text-3xl md:text-4xl font-bold text-center text-blue-700 mb-8">Mi Aventura Mágica</h1>
+      <h1 className="text-3xl md:text-4xl font-bold text-center text-blue-700 mb-8">📚 Yo Quiero Aprender 📚</h1>
       
       <div className="relative w-full flex justify-center">
         <Book width={dimensions.width} height={dimensions.height} />
