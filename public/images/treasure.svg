@@ -1,0 +1,56 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo -->
+  <rect width="400" height="300" fill="#F5DEB3"/>
+  
+  <!-- Cofre del tesoro -->
+  <rect x="120" y="120" width="160" height="100" fill="#8B4513" stroke="#000" stroke-width="3" rx="5" ry="5"/>
+  <rect x="120" y="120" width="160" height="40" fill="#A0522D" stroke="#000" stroke-width="3" rx="5" ry="5"/>
+  
+  <!-- Tapa del cofre -->
+  <path d="M120 120 Q 200 80 280 120" fill="#A0522D" stroke="#000" stroke-width="3"/>
+  
+  <!-- Detalles del cofre -->
+  <rect x="190" y="140" width="20" height="15" fill="#FFD700" stroke="#000" stroke-width="1"/>
+  <circle cx="200" cy="147" r="5" fill="#000"/>
+  
+  <!-- Bisagra del cofre -->
+  <rect x="130" y="120" width="10" height="5" fill="#696969" stroke="#000" stroke-width="1"/>
+  <rect x="260" y="120" width="10" height="5" fill="#696969" stroke="#000" stroke-width="1"/>
+  
+  <!-- Tesoros que salen del cofre -->
+  <circle cx="150" cy="100" r="15" fill="#FFD700" stroke="#000" stroke-width="2"/> <!-- Moneda -->
+  <circle cx="150" cy="100" r="10" fill="#DAA520" stroke="#000" stroke-width="1"/>
+  
+  <polygon points="190,90 200,70 210,90 220,70 230,90" fill="#FF0000" stroke="#000" stroke-width="2"/> <!-- Gema roja -->
+  
+  <circle cx="250" cy="100" r="12" fill="#4169E1" stroke="#000" stroke-width="2"/> <!-- Gema azul -->
+  <circle cx="250" cy="100" r="8" fill="#1E90FF" stroke="#000" stroke-width="1"/>
+  
+  <!-- Monedas dentro del cofre -->
+  <circle cx="160" cy="150" r="10" fill="#FFD700" stroke="#000" stroke-width="1"/>
+  <circle cx="180" cy="160" r="10" fill="#FFD700" stroke="#000" stroke-width="1"/>
+  <circle cx="200" cy="170" r="10" fill="#FFD700" stroke="#000" stroke-width="1"/>
+  <circle cx="220" cy="160" r="10" fill="#FFD700" stroke="#000" stroke-width="1"/>
+  <circle cx="240" cy="150" r="10" fill="#FFD700" stroke="#000" stroke-width="1"/>
+  
+  <!-- Corona -->
+  <path d="M170 200 L180 180 L190 185 L200 170 L210 185 L220 180 L230 200 Z" fill="#FFD700" stroke="#000" stroke-width="2"/>
+  <circle cx="180" cy="185" r="4" fill="#FF0000" stroke="#000" stroke-width="1"/>
+  <circle cx="200" cy="180" r="4" fill="#00FF00" stroke="#000" stroke-width="1"/>
+  <circle cx="220" cy="185" r="4" fill="#0000FF" stroke="#000" stroke-width="1"/>
+  
+  <!-- Mapa -->
+  <rect x="40" y="40" width="60" height="80" fill="#F5F5DC" stroke="#000" stroke-width="1"/>
+  <path d="M50 60 Q 70 50 90 70 Q 70 90 50 80 Z" fill="none" stroke="#000" stroke-width="1"/> <!-- Ruta en el mapa -->
+  <circle cx="90" cy="70" r="5" fill="#FF0000" stroke="#000" stroke-width="1"/> <!-- X marca el punto -->
+  <line x1="85" y1="65" x2="95" y2="75" stroke="#000" stroke-width="1"/>
+  <line x1="85" y1="75" x2="95" y2="65" stroke="#000" stroke-width="1"/>
+  
+  <!-- Brillo del tesoro -->
+  <path d="M260 130 L270 120 L280 130" fill="none" stroke="#FFD700" stroke-width="2"/>
+  <path d="M140 190 L150 180 L160 190" fill="none" stroke="#FFD700" stroke-width="2"/>
+  <path d="M230 190 L240 180 L250 190" fill="none" stroke="#FFD700" stroke-width="2"/>
+  
+  <!-- Texto -->
+  <text x="200" y="260" text-anchor="middle" font-family="Arial" font-size="24" fill="#8B4513" font-weight="bold">¡El tesoro escondido!</text>
+</svg>
