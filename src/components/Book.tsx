@@ -105,35 +105,13 @@ const Book: React.FC<BookProps> = ({ width = 1000, height = 600 }) => {
           </Page> */}
 
           {/* Page 3 */}
+
+
           <Page number={3} className="page relative p-0 overflow-hidden">
             {/* Fondo con imagen y opacidad reducida */}
-            <div 
-              className="absolute inset-0"
-              style={{
-                backgroundImage: 'url(/images/fondo1.jpg)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                opacity: 0.7,
-                WebkitBackfaceVisibility: 'hidden'
-              }}
-            />
-            
-            {/* Contenido principal con fondo semitransparente */}
-            <div className="absolute inset-0 p-4 md:p-8 flex flex-col bg-white/60">
-              <h2 className="text-3xl font-bold text-center mb-4 text-green-600">El bosque encantado</h2>
-              <p className="text-lg mb-6 text-center">
-                Había una vez un bosque lleno de árboles mágicos y criaturas fantásticas. 
-                Los niños adoraban jugar entre sus árboles coloridos.
-              </p>
-              <div className="flex justify-center h-3/4">
-                <img 
-                  src="/images/forest.svg" 
-                  alt="Bosque encantado" 
-                  className="h-full w-auto object-contain"
-                />
-              </div>
-            </div>
+            <video autoPlay muted loop className="h-full w-full object-cover">
+              <source src="/videos/page2.mp4" type="video/mp4" />
+            </video>
           </Page>
 
           {/* Page 4 - Video Page */}
@@ -142,11 +120,11 @@ const Book: React.FC<BookProps> = ({ width = 1000, height = 600 }) => {
             <div 
               className="absolute inset-0"
               style={{
-                backgroundImage: 'url(/images/fondo1.jpg)',
+                backgroundImage: 'url(/images/aprender.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
-                opacity: 0.7,
+                // opacity: 0.1,
                 WebkitBackfaceVisibility: 'hidden'  // Mejora el rendimiento en iOS
               }}
             />
@@ -154,7 +132,7 @@ const Book: React.FC<BookProps> = ({ width = 1000, height = 600 }) => {
             {/* Contenido principal con fondo semitransparente */}
             <div className="absolute inset-0 p-4 md:p-8 flex flex-col bg-white/60">
               <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-6 text-red-600">
-                ¡Mira nuestra aventura!
+              
               </h2>
               
               {/* Contenedor del video */}
@@ -165,9 +143,10 @@ const Book: React.FC<BookProps> = ({ width = 1000, height = 600 }) => {
                     controls           // Muestra controles de reproducción
                     muted              // Silencia el video por defecto
                     playsInline        // Evita el modo pantalla completa en iOS
-                    className="w-full h-auto aspect-video object-cover"
+                   
                     disablePictureInPicture  // Desactiva el modo picture-in-picture
                     controlsList="nodownload"  // Oculta la opción de descarga
+                    style={{height: 'auto', width: '100vw'}}
                   >
                     <source src="/videos/Eimy.mp4" type="video/mp4" />
                     Tu navegador no soporta videos HTML5.
@@ -277,13 +256,21 @@ const Book: React.FC<BookProps> = ({ width = 1000, height = 600 }) => {
           </Page> */}
 
           {/* Page 6 - Back Cover */}
-          <Page number={8} className="page bg-gradient-to-r from-purple-500 to-blue-400 p-8">
-            <div className="flex flex-col justify-center items-center h-full p-8">
-              <h2 className="text-4xl font-bold text-white text-center mb-8">¡Fin de la aventura!</h2>
-              <p className="text-2xl text-white text-center mb-4">¡Esperamos que hayas disfrutado este libro!</p>
-              <p className="text-2xl text-white text-center">Vuelve pronto para más aventuras</p>
-            </div>
-          </Page>
+          <Page number={5}className="page relative p-0 overflow-hidden">
+            {/* Fondo con imagen y opacidad reducida */}
+            <div 
+              className="absolute inset-0"
+              style={{
+                backgroundImage: 'url(/images/aprender.png)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                // opacity: 0.1,
+                WebkitBackfaceVisibility: 'hidden'  // Mejora el rendimiento en iOS
+              }}
+                
+            />
+            </Page>
         </HTMLFlipBook>
       </div>
 
