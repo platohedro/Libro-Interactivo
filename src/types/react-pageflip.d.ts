@@ -40,9 +40,9 @@ declare module 'react-pageflip' {
     onFlip?: (e: { data: number; object: PageFlip }) => void;
     onChangeOrientation?: (e: { data: 'portrait' | 'landscape'; object: PageFlip }) => void;
     onChangeState?: (e: { data: 'user_fold' | 'fold_corner' | 'flipping' | 'read'; object: PageFlip }) => void;
-    [key: string]: any; // Para permitir props adicionales
+    [key: string]: unknown; // Para permitir props adicionales
   }
 
-  const HTMLFlipBook: React.ForwardRefExoticComponent<HTMLFlipBookProps & React.RefAttributes<any>>;
+  const HTMLFlipBook: React.ForwardRefExoticComponent<HTMLFlipBookProps & React.RefAttributes<PageFlip>>;
   export default HTMLFlipBook;
 }

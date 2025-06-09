@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
-import HTMLFlipBook from 'react-pageflip';
+import HTMLFlipBook, { PageFlip } from 'react-pageflip';
 import Page from './Page';
-import PuzzleGame from './PuzzleGame';
 
 type BookProps = {
   width?: number;
@@ -11,9 +10,9 @@ type BookProps = {
 const Book: React.FC<BookProps> = ({ width = 1000, height = 600 }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isPlayingPuzzle, setIsPlayingPuzzle] = useState(false);
-  const flipBook = useRef<any>(null);
+  const flipBook = useRef<PageFlip>(null);
 
-  const handleFlip = (e: any) => {
+  const handleFlip = (e: { data: number }) => {
     const newPage = e.data;
     // Si estamos entrando o saliendo de la página del puzzle
     if (newPage === 6 || currentPage === 6) {
@@ -22,25 +21,14 @@ const Book: React.FC<BookProps> = ({ width = 1000, height = 600 }) => {
     setCurrentPage(newPage);
   };
 
-  const shouldFlip = (forward: boolean) => {
-    // Si estamos en la página del puzzle, no permitir cambio
-    if (currentPage === 6) {
-      return false;
-    }
-    return true;
-  };
+  // const shouldFlip = (_forward: boolean) => {
+  //   // Si estamos en la página del puzzle, no permitir cambio
+  //   if (currentPage === 6) {
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
-  const nextButtonClick = () => {
-    if (shouldFlip(true)) {
-      flipBook.current?.pageFlip()?.flipNext();
-    }
-  };
-
-  const prevButtonClick = () => {
-    if (shouldFlip(false)) {
-      flipBook.current?.pageFlip()?.flipPrev();
-    }
-  };
 
   return (
     <div className="flex flex-col items-center p-4 w-full h-full">
