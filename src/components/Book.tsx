@@ -1,31 +1,44 @@
-import React, { useRef, useState } from 'react';
-import HTMLFlipBook, { PageFlip } from 'react-pageflip';
+import React, { useState, useRef } from 'react';
+import HTMLFlipBook from 'react-pageflip';
 import Page from './Page';
+import PuzzleGame from './PuzzleGame';
 
 type BookProps = {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 };
 
-const Book: React.FC<BookProps> = ({ width, height }) => {
-  const flipBook = useRef<any>(null);
+const Book: React.FC<BookProps> = ({ width = 1000, height = 600 }) => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [isPlayingPuzzle, setIsPlayingPuzzle] = useState(false);
+  const flipBook = useRef<any>(null);
 
-  const handleFlip = (e: { data: number; object: PageFlip }) => {
-    setCurrentPage(e.data);
+  const handleFlip = (e: any) => {
+    const newPage = e.data;
+    // Si estamos entrando o saliendo de la página del puzzle
+    if (newPage === 6 || currentPage === 6) {
+      setIsPlayingPuzzle(newPage === 6);
+    }
+    setCurrentPage(newPage);
+  };
+
+  const shouldFlip = (forward: boolean) => {
+    // Si estamos en la página del puzzle, no permitir cambio
+    if (currentPage === 6) {
+      return false;
+    }
+    return true;
   };
 
   const nextButtonClick = () => {
-    if (flipBook.current) {
-      const pageFlip = flipBook.current.getPageFlip();
-      pageFlip.flipNext();
+    if (shouldFlip(true)) {
+      flipBook.current?.pageFlip()?.flipNext();
     }
   };
 
   const prevButtonClick = () => {
-    if (flipBook.current) {
-      const pageFlip = flipBook.current.getPageFlip();
-      pageFlip.flipPrev();
+    if (shouldFlip(false)) {
+      flipBook.current?.pageFlip()?.flipPrev();
     }
   };
 
@@ -36,46 +49,35 @@ const Book: React.FC<BookProps> = ({ width, height }) => {
           width={width}
           height={height}
           size="stretch"
-          minWidth={280}
+          minWidth={300}
           maxWidth={1500}
-          minHeight={500}
+          minHeight={400}
           maxHeight={1800}
-          maxShadowOpacity={0.3}
+          maxShadowOpacity={0.5}
           showCover={true}
-          mobileScrollSupport={true}
+          mobileScrollSupport={!isPlayingPuzzle}
           onFlip={handleFlip}
-          className="book-container w-full h-full touch-pan-y"
+          swipeDistance={isPlayingPuzzle ? 0 : 50}
+          flippingTime={1000}
+          usePortrait={true}
+          autoSize={true}
           ref={flipBook}
           startPage={0}
-          useMouseEvents={true}
-          useTouchEvents={true}
-          swipeDistance={30}
-          showPageCorners={false}
-          clickTouchForwarder={true}
+          clickEventForward={!isPlayingPuzzle}
+          disableFlipByClick={isPlayingPuzzle}
         >
           {/* Portada: Primera página visible */}
-          <Page number={1} className="page bg-gradient-to-r from-blue-500 to-purple-500 p-8">
-            <div className="flex flex-col justify-center items-center h-full">
-              <h1 className="text-5xl md:text-6xl font-bold text-center text-white mb-8">YO QUIERO APRENDER</h1>
+          <Page number={1} className="page bg-black">
+            <div className="h-full w-full">
+              <video autoPlay muted loop className="h-full w-full object-cover">
+                <source src="/videos/aprender.mp4" type="video/mp4" />
+              </video>
             </div>
           </Page>
 
-          {/* Page 2 */}
-          <Page number={2} className="page bg-white p-8">
-            <h2 className="text-3xl font-bold text-center mb-4 text-blue-600">¡Hola, amiguito!</h2>
-            <p className="text-xl text-center mb-8">¡Bienvenido a una aventura llena de diversión!</p>
-            <div className="flex justify-center h-3/4">
-              <img 
-                src="/images/friends.svg" 
-                alt="Niños saludando" 
-                className="h-full w-auto object-contain"
-              />
-            </div>
-          </Page>
-
-          {/* Page 3 */}
-          <Page number={3} className="page relative p-0 overflow-hidden">
-            {/* Fondo de la página */}
+{/*      
+          <Page number={2} className="page relative p-0 overflow-hidden">
+       
             <div 
               className="absolute inset-0"
               style={{
@@ -83,31 +85,58 @@ const Book: React.FC<BookProps> = ({ width, height }) => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
-                opacity: 1
+                opacity: 0.7,
+                WebkitBackfaceVisibility: 'hidden'
               }}
             />
-            {/* Contenido con fondo semitransparente más claro */}
-            <div className="absolute inset-0 p-8 flex flex-col bg-white/70">
-              <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">El bosque encantado</h2>
-              <p className="text-lg mb-6 text-center text-gray-700">
+            
+       
+            <div className="absolute inset-0 p-4 md:p-8 flex flex-col bg-white/60">
+              <h2 className="text-3xl font-bold text-center mb-4 text-blue-600">¡Hola, amiguito!</h2>
+              <p className="text-xl text-center mb-8">¡Bienvenido a una aventura llena de diversión!</p>
+              <div className="flex justify-center h-3/4">
+                <img 
+                  src="/images/friends.svg" 
+                  alt="Niños saludando" 
+                  className="h-full w-auto object-contain"
+                />
+              </div>
+            </div>
+          </Page> */}
+
+          {/* Page 3 */}
+          <Page number={3} className="page relative p-0 overflow-hidden">
+            {/* Fondo con imagen y opacidad reducida */}
+            <div 
+              className="absolute inset-0"
+              style={{
+                backgroundImage: 'url(/images/fondo1.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                opacity: 0.7,
+                WebkitBackfaceVisibility: 'hidden'
+              }}
+            />
+            
+            {/* Contenido principal con fondo semitransparente */}
+            <div className="absolute inset-0 p-4 md:p-8 flex flex-col bg-white/60">
+              <h2 className="text-3xl font-bold text-center mb-4 text-green-600">El bosque encantado</h2>
+              <p className="text-lg mb-6 text-center">
                 Había una vez un bosque lleno de árboles mágicos y criaturas fantásticas. 
                 Los niños adoraban jugar entre sus árboles coloridos.
               </p>
-              <div className="flex-1 flex justify-center items-center">
-                {/* <img 
+              <div className="flex justify-center h-3/4">
+                <img 
                   src="/images/forest.svg" 
                   alt="Bosque encantado" 
-                  className="h-3/4 w-auto object-contain"
-                /> */}
+                  className="h-full w-auto object-contain"
+                />
               </div>
             </div>
           </Page>
 
-          {/* 
-            Página 4 - Video Interactivo
-            Esta página muestra un video dentro del libro.
-            Incluye un fondo con opacidad reducida y un reproductor de video centrado.
-          */}
+          {/* Page 4 - Video Page */}
           <Page number={4} className="page relative p-0 overflow-hidden">
             {/* Fondo con imagen y opacidad reducida */}
             <div 
@@ -137,7 +166,6 @@ const Book: React.FC<BookProps> = ({ width, height }) => {
                     muted              // Silencia el video por defecto
                     playsInline        // Evita el modo pantalla completa en iOS
                     className="w-full h-auto aspect-video object-cover"
-                    poster="/images/video-poster.jpg"  // Imagen de portada
                     disablePictureInPicture  // Desactiva el modo picture-in-picture
                     controlsList="nodownload"  // Oculta la opción de descarga
                   >
@@ -149,11 +177,8 @@ const Book: React.FC<BookProps> = ({ width, height }) => {
             </div>
           </Page>
 
-          {/* 
-            Página 5
-            Esta página muestra un título y un texto descriptivo.
-          */}
-          <Page number={5} className="page bg-white p-8">
+          {/* Page 5 */}
+          {/* <Page number={5} className="page bg-white p-8">
             <h2 className="text-3xl font-bold text-center mb-6 text-yellow-600">El tesoro escondido</h2>
             <p className="text-lg mb-6 text-center">
               Los niños encontraron un mapa que los llevó hasta un cofre lleno de sorpresas.
@@ -166,24 +191,119 @@ const Book: React.FC<BookProps> = ({ width, height }) => {
                 className="h-full w-auto object-contain"
               />
             </div>
-          </Page>
+          </Page> */}
+
+      
+          {/* <Page number={6} className="page relative p-0 overflow-hidden">
+           
+            <div 
+              className="absolute inset-0"
+              style={{
+                backgroundImage: 'url(/images/fondo1.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                opacity: 0.7,
+                WebkitBackfaceVisibility: 'hidden'
+              }}
+            />
+            
+       
+            <div className="absolute inset-0 p-4 md:p-8 flex flex-col bg-white/60">
+              <h2 className="text-3xl font-bold text-center mb-6 text-indigo-700">¡Arma el Puzle!</h2>
+              
+              <div className="bg-white/90 rounded-xl p-6 shadow-lg mb-8 max-w-md mx-auto border border-indigo-200">
+                <h3 className="text-xl font-semibold text-indigo-800 mb-4">Instrucciones:</h3>
+                <ol className="list-decimal pl-5 space-y-2 text-gray-800">
+                  <li>En la siguiente página encontrarás los elementos para armar una lámpara mágica.</li>
+                  <li>Debes arrastrar cada elemento en el orden correcto.</li>
+                  <li>El orden es: Jarra → Agua → Aceite → Pastilla → Tapa</li>
+                  <li>¡Completa el puzle para ver la magia!</li>
+                </ol>
+              </div>
+              
+              <div className="w-40 h-40 mx-auto bg-gradient-to-b from-indigo-200 to-blue-300 rounded-lg flex items-center justify-center shadow-inner border-4 border-white">
+                <span className="text-6xl">🧩</span>
+              </div>
+              
+              <p className="mt-6 text-center text-indigo-700 font-medium text-lg">
+                ¡Pasa la página para comenzar el puzle!
+              </p>
+            </div>
+          </Page> */}
+
+          {/* Página 7 - Juego del Puzle */}
+          {/* <Page 
+            number={7} 
+            className="page relative p-0 overflow-hidden"
+          >
+
+            <div 
+              className="absolute inset-0"
+              style={{
+                backgroundImage: 'url(/images/fondo1.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                opacity: 0.7,
+                WebkitBackfaceVisibility: 'hidden'
+              }}
+            />
+            
+
+            <div 
+              className="absolute inset-0 p-4 md:p-8 flex flex-col bg-white/60"
+              style={{ pointerEvents: 'none' }}
+            >
+              <div 
+                className="relative w-full h-full"
+                style={{ pointerEvents: 'auto' }}
+              >
+                <h2 className="text-2xl font-bold text-center mb-4 text-indigo-800">¡Arma la Lámpara Mágica!</h2>
+                <div 
+                  className="w-full h-[calc(100%-4rem)] bg-white/90 rounded-lg shadow-lg overflow-hidden puzzle-game-container"
+                  style={{
+                    touchAction: 'none',
+                    userSelect: 'none',
+                    WebkitUserSelect: 'none',
+                    position: 'relative',
+                    zIndex: 10,
+                  }}
+                >
+                  <PuzzleGame />
+                </div>
+              </div>
+            </div>
+          </Page> */}
 
           {/* Page 6 - Back Cover */}
-          <Page number={6} className="page bg-gradient-to-r from-purple-500 to-blue-400 p-4 md:p-8">
-            <div className="flex flex-col justify-center items-center h-full p-4 md:p-8">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-6 sm:mb-8">
-                ¡Fin de la aventura!
-              </h2>
-              <p className="text-xl sm:text-2xl text-white text-center mb-4">
-                ¡Esperamos que hayas disfrutado este libro!
-              </p>
-              <p className="text-xl sm:text-2xl text-white text-center">
-                Vuelve pronto para más aventuras
-              </p>
+          <Page number={8} className="page bg-gradient-to-r from-purple-500 to-blue-400 p-8">
+            <div className="flex flex-col justify-center items-center h-full p-8">
+              <h2 className="text-4xl font-bold text-white text-center mb-8">¡Fin de la aventura!</h2>
+              <p className="text-2xl text-white text-center mb-4">¡Esperamos que hayas disfrutado este libro!</p>
+              <p className="text-2xl text-white text-center">Vuelve pronto para más aventuras</p>
             </div>
           </Page>
         </HTMLFlipBook>
       </div>
+
+      {/* Navigation Controls */}
+      {/* <div className="mt-8 flex justify-center space-x-8">
+        <button 
+          onClick={prevButtonClick}
+          className="px-6 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={currentPage === 0}
+        >
+          ← Anterior
+        </button>
+        <button 
+          onClick={nextButtonClick}
+          className="px-6 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={currentPage === 6}
+        >
+          Siguiente →
+        </button>
+      </div> */}
     </div>
   );
 };

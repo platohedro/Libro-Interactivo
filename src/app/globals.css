@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 248, 250, 252;
+  --background-end-rgb: 241, 245, 249;
 }
 
 @theme inline {
@@ -12,6 +15,67 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Animaciones para el juego de lámpara de lava */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes lavaFlow {
+  0% { transform: translateY(0) scale(1); opacity: 0.7; }
+  50% { transform: translateY(-10px) scale(1.05); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 0.7; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-bounce-slow {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.animate-lava-flow {
+  animation: lavaFlow 3s ease-in-out infinite;
+}
+
+/* Estilos para el mensaje de éxito */
+#mensaje-exito {
+  display: none;
+  z-index: 50;
+}
+
+#mensaje-exito.flex {
+  display: flex;
+}
+
+/* Mejoras de accesibilidad */
+[role="button"] {
+  cursor: pointer;
+}
+
+/* Asegurar que los elementos arrastrables tengan el cursor correcto */
+[draggable="true"] {
+  user-select: none;
+}
+
+/* Estilos para la lámpara de lava */
+#lampara-contenido {
+  position: relative;
+  min-height: 200px;
+}
+
+/* Asegurar que el libro no interfiera con los elementos interactivos */
+.page {
+  touch-action: pan-y;
+}
+
+/* Estilos para el tema oscuro */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -23,4 +87,114 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Estilos para elementos arrastrables */
+[draggable="true"] {
+  -webkit-user-drag: element;
+  -khtml-user-drag: element;
+  -moz-user-drag: element;
+  -o-user-drag: element;
+  user-drag: element;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Clase para elementos que deben ignorar el arrastre */
+.no-drag {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* Estilos para el libro */
+.book-container {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  z-index: 1;
+  touch-action: pan-y;
+}
+
+/* Permitir interacción con el contenido de la página */
+.page {
+  touch-action: pan-y;
+  z-index: 1;
+}
+
+/* Estilos para el área del juego */
+.game-area {
+  position: relative;
+  z-index: 2;
+  touch-action: pan-y;
+}
+
+/* Estilos para el juego de lámpara de lava */
+#lampara {
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 10;
+  touch-action: pan-y;
+}
+
+#lampara.drag-over {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);
+}
+
+/* Estilos para los elementos arrastrables */
+.draggable-item {
+  transition: transform 0.1s ease, opacity 0.2s ease;
+  position: relative;
+  z-index: 20;
+  -webkit-user-drag: element;
+  -khtml-user-drag: element;
+  -moz-user-drag: element;
+  -o-user-drag: element;
+  user-drag: element;
+  touch-action: manipulation;
+}
+
+.draggable-item:active {
+  transform: scale(1.05);
+  z-index: 100;
+}
+
+/* Mejorar la retroalimentación visual al arrastrar */
+[draggable="true"]:active {
+  opacity: 0.8;
+}
+
+/* Asegurar que los elementos arrastrables tengan un cursor apropiado */
+.cursor-grab {
+  cursor: grab;
+}
+
+.cursor-grabbing {
+  cursor: grabbing;
+}
+
+/* Prevenir el comportamiento de selección de texto durante el arrastre */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

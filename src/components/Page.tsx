@@ -4,13 +4,15 @@ type PageProps = {
   number: number;
   children?: ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 };
 
-const Page = forwardRef<HTMLDivElement, PageProps>(({ number, children, className = '' }, ref) => {
+const Page = forwardRef<HTMLDivElement, PageProps>(({ number, children, className = '', style }, ref) => {
   return (
     <div 
       className={`relative bg-white shadow-xl rounded-r-lg overflow-hidden ${className}`} 
       ref={ref}
+      style={style}
     >
       <div className="absolute inset-0 p-4 flex flex-col">
         {children}
