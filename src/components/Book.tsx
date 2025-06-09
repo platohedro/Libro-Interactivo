@@ -97,7 +97,7 @@ const Book: React.FC<BookProps> = ({ width = 1000, height = 600 }) => {
 
           <Page number={3} className="page relative p-0 overflow-hidden">
             {/* Fondo con imagen y opacidad reducida */}
-            <video autoPlay muted loop className="h-full w-full object-cover">
+            <video autoPlay  loop className="h-full w-full object-cover">
               <source src="/videos/page2.mp4" type="video/mp4" />
             </video>
           </Page>
@@ -129,7 +129,7 @@ const Book: React.FC<BookProps> = ({ width = 1000, height = 600 }) => {
                   <video 
                     autoPlay           // Reproduce automáticamente
                     controls           // Muestra controles de reproducción
-                    muted              // Silencia el video por defecto
+                                // Silencia el video por defecto
                     playsInline        // Evita el modo pantalla completa en iOS
                    
                     disablePictureInPicture  // Desactiva el modo picture-in-picture
